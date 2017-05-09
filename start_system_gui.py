@@ -17,6 +17,7 @@ ip_zpi_master_synch = '192.168.42.1'
 sn_cam_master_synch = '02460040'
 ip_zpi_fx3 = '192.168.42.7'
 fname = "cam_list.txt" #file containing lists of ips
+paramiko.util.log_to_file("filename.log")
 
 #read file
 with open(fname) as f:
@@ -130,14 +131,14 @@ def check_synch_status():
 def start_recordings():
     print "START RECORDINGS.."
     for current_ctl in control_stereo:
-        current_ctl.send_command('put  /1/9-FileOutput/ running bool true')
-        current_ctl.send_command('put  /1/99-FileOutput/ running bool true')
+        current_ctl.send_command('put /1/9-FileOutput/ running bool true')
+        current_ctl.send_command('put /1/99-FileOutput/ running bool true')
 
 def stop_recordings():
     print "STOP RECORDINGS.."
     for current_ctl in control_stereo:
-        current_ctl.send_command('put  /1/9-FileOutput/ running bool false')
-        current_ctl.send_command('put  /1/99-FileOutput/ running bool false')
+        current_ctl.send_command('put /1/9-FileOutput/ running bool false')
+        current_ctl.send_command('put /1/99-FileOutput/ running bool false')
 
 def check_file_status():
     print "CHECKING FILE STATUS FOR ALL STEREO UP"
@@ -243,11 +244,12 @@ B = Tkinter.Button(top, text ="Check File Status", command = check_file_status)
 B.pack()
 B = Tkinter.Button(top, text ="Reset Timestamp", command = reset_timestamp)
 B.pack()
+B = Tkinter.Button(top, text ="Check Synchronization", command = check_synch_status)
+B.pack()
 B = Tkinter.Button(top, text ="Killall cAER", command = killall_caers)
 B.pack()
 B = Tkinter.Button(top, text ="StartAll cAER", command = startall_caers)
 B.pack()
-B = Tkinter.Button(top, text ="Check Synchronization", command = check_synch_status)
-B.pack()
+
 
 top.mainloop()

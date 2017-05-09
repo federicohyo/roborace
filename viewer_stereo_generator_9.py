@@ -75,10 +75,11 @@ if(eventtype == 2):
 
 nx = y_lenght
 ny = x_lenght
-fig = plt.figure()
+fig = plt.figure(figsize=(6, 4), dpi=80, facecolor='w', edgecolor='k')
 data = np.zeros((nx, ny, 3))
 plt.title(host)
-im = plt.imshow(data, cmap='gist_gray_r', vmin=0, vmax=1)
+im = plt.imshow(data, cmap='copper', vmin=0, vmax=1)
+plt.axis('off')
 plt.ion()
 plt.show()
 
