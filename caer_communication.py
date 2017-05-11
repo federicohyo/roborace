@@ -122,8 +122,8 @@ class caer_communication:
                     databuffer_lenght = 10 + node_length
                 if(action_code == self.PUT):
                     node_length  = len(cmd_parts[self.cmd_part_node]) + 1
-                    key_length = len(cmd_parts[self.cmd_part_key]) + 1 
-                    value_length = len(cmd_parts[self.cmd_part_value]) + 1                     
+                    key_length = len(cmd_parts[self.cmd_part_key]) + 1
+                    value_length = len(cmd_parts[self.cmd_part_value]) + 1
                     databuffer[0] = action_code
                     databuffer[1] = self.type_action[cmd_parts[self.cmd_part_type]]
                     databuffer[2:3] = struct.pack('H', 0)
@@ -134,7 +134,6 @@ class caer_communication:
                     databuffer[10+node_length:10+node_length+key_length] = str(cmd_parts[self.cmd_part_key])
                     databuffer[10+node_length+key_length:10+node_length+key_length+value_length] = str(cmd_parts[self.cmd_part_value])
                     databuffer_length = 10 + node_length + key_length + value_length
-                    #raise Exception
                 if(action_code == self.GET):
                     node_length  = len(cmd_parts[self.cmd_part_node]) + 1
                     key_length = len(cmd_parts[self.cmd_part_key]) + 1 
@@ -149,7 +148,7 @@ class caer_communication:
                     databuffer[10+node_length:10+node_length+key_length] = str(cmd_parts[self.cmd_part_key])
                     #databuffer[10+node_length+key_length:10+node_length+key_length] = str(cmd_parts[self.cmd_part_value])
                     databuffer_length = 10 + node_length + key_length 
-                    #raise Exception
+
 
         return databuffer[0:databuffer_length]
 

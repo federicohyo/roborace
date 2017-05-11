@@ -233,9 +233,6 @@ import Tkinter
 #import tkMessageBox
 top = Tkinter.Tk()
 
-#def helloCallBack():
-#   tkMessageBox.showinfo( "Hello Python", "Hello World")
-
 B = Tkinter.Button(top, text ="Start Recording", command = start_recordings)
 B.pack()
 B = Tkinter.Button(top, text ="Stop Recording", command = stop_recordings)
