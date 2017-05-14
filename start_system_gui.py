@@ -226,11 +226,11 @@ def startall_caers():
         client.close()
 
 
-### reset timestamp and start all recordings by default
+################
+## minimal GUI
+################
 
-## GUI
 import Tkinter
-#import tkMessageBox
 top = Tkinter.Tk()
 
 B = Tkinter.Button(top, text ="Start Recording", command = start_recordings)
