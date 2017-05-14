@@ -1,0 +1,225 @@
+<sshs version="1.0">
+    <node name="" path="/">
+        <node name="1" path="/1/">
+            <node name="1-FileInput" path="/1/1-FileInput/">
+                <attr key="PacketContainerDelay" type="int">5000</attr>
+                <attr key="PacketContainerInterval" type="int">10000</attr>
+                <attr key="PacketContainerMaxPacketSize" type="int">8192</attr>
+                <attr key="autoRestart" type="bool">true</attr>
+                <attr key="bufferSize" type="int">65536</attr>
+                <attr key="filePath" type="string">/home/inilabs/Desktop/Monaco_Roborace/03460001/caerOut-2017_05_12_16_36_40.aedat</attr>
+                <attr key="keepPackets" type="bool">false</attr>
+                <attr key="pause" type="bool">false</attr>
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="transferBufferSize" type="int">128</attr>
+                <attr key="validOnly" type="bool">false</attr>
+            </node>
+            <node name="10-FileInput" path="/1/10-FileInput/">
+                <attr key="filePath" type="string"></attr>
+                <attr key="runAtStartup" type="bool">true</attr>
+            </node>
+            <node name="17-VisualizerFrame" path="/1/17-VisualizerFrame/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1</attr>
+            </node>
+            <node name="18-VisualizerFrame" path="/1/18-VisualizerFrame/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1</attr>
+            </node>
+            <node name="19-VisualizerFrame" path="/1/19-VisualizerFrame/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1.5</attr>
+            </node>
+            <node name="2-FileInput" path="/1/2-FileInput/">
+                <attr key="PacketContainerDelay" type="int">5000</attr>
+                <attr key="PacketContainerInterval" type="int">10000</attr>
+                <attr key="PacketContainerMaxPacketSize" type="int">8192</attr>
+                <attr key="autoRestart" type="bool">true</attr>
+                <attr key="bufferSize" type="int">65536</attr>
+                <attr key="filePath" type="string">/home/inilabs/Desktop/Monaco_Roborace/03460002/caerOut-2017_05_12_16_36_40.aedat</attr>
+                <attr key="keepPackets" type="bool">false</attr>
+                <attr key="pause" type="bool">false</attr>
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="transferBufferSize" type="int">128</attr>
+                <attr key="validOnly" type="bool">false</attr>
+            </node>
+            <node name="20-VisualizerFrame" path="/1/20-VisualizerFrame/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1.5</attr>
+            </node>
+            <node name="21-VisualizerFrame" path="/1/21-VisualizerFrame/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1.5</attr>
+            </node>
+            <node name="22-VisualizerFrame" path="/1/22-VisualizerFrame/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1.5</attr>
+            </node>
+            <node name="23-VisualizerFrame" path="/1/23-VisualizerFrame/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">true</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">2</attr>
+            </node>
+            <node name="24-VisualizerFrame" path="/1/24-VisualizerFrame/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">true</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">2</attr>
+            </node>
+            <node name="25-VisualizerPolarity" path="/1/25-VisualizerPolarity/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1</attr>
+            </node>
+            <node name="26-VisualizerPolarity" path="/1/26-VisualizerPolarity/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1</attr>
+            </node>
+            <node name="27-VisualizerPolarity" path="/1/27-VisualizerPolarity/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1.5</attr>
+            </node>
+            <node name="28-VisualizerPolarity" path="/1/28-VisualizerPolarity/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1.5</attr>
+            </node>
+            <node name="29-VisualizerPolarity" path="/1/29-VisualizerPolarity/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1.5</attr>
+            </node>
+            <node name="3-FileInput" path="/1/3-FileInput/">
+                <attr key="PacketContainerDelay" type="int">5000</attr>
+                <attr key="PacketContainerInterval" type="int">10000</attr>
+                <attr key="PacketContainerMaxPacketSize" type="int">8192</attr>
+                <attr key="autoRestart" type="bool">true</attr>
+                <attr key="bufferSize" type="int">65536</attr>
+                <attr key="filePath" type="string">/home/inilabs/Desktop/Monaco_Roborace/02460015/caerOut-2017_05_12_16_37_31.aedat</attr>
+                <attr key="keepPackets" type="bool">false</attr>
+                <attr key="pause" type="bool">false</attr>
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="transferBufferSize" type="int">128</attr>
+                <attr key="validOnly" type="bool">false</attr>
+            </node>
+            <node name="3-Statistics" path="/1/3-Statistics/">
+                <attr key="runAtStartup" type="bool">true</attr>
+            </node>
+            <node name="30-VisualizerPolarity" path="/1/30-VisualizerPolarity/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">false</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">1.5</attr>
+            </node>
+            <node name="31-VisualizerPolarity" path="/1/31-VisualizerPolarity/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">true</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">2</attr>
+            </node>
+            <node name="32-VisualizerPolarity" path="/1/32-VisualizerPolarity/">
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="showStatistics" type="bool">true</attr>
+                <attr key="subsampleRendering" type="int">1</attr>
+                <attr key="zoomFactor" type="float">2</attr>
+            </node>
+            <node name="4-FileInput" path="/1/4-FileInput/">
+                <attr key="PacketContainerDelay" type="int">5000</attr>
+                <attr key="PacketContainerInterval" type="int">10000</attr>
+                <attr key="PacketContainerMaxPacketSize" type="int">8192</attr>
+                <attr key="autoRestart" type="bool">true</attr>
+                <attr key="bufferSize" type="int">65536</attr>
+                <attr key="filePath" type="string">/home/inilabs/Desktop/Monaco_Roborace/02460027/caerOut-2017_05_12_16_37_30.aedat</attr>
+                <attr key="keepPackets" type="bool">false</attr>
+                <attr key="pause" type="bool">false</attr>
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="transferBufferSize" type="int">128</attr>
+                <attr key="validOnly" type="bool">false</attr>
+            </node>
+            <node name="5-FileInput" path="/1/5-FileInput/">
+                <attr key="PacketContainerDelay" type="int">5000</attr>
+                <attr key="PacketContainerInterval" type="int">10000</attr>
+                <attr key="PacketContainerMaxPacketSize" type="int">8192</attr>
+                <attr key="autoRestart" type="bool">true</attr>
+                <attr key="bufferSize" type="int">65536</attr>
+                <attr key="filePath" type="string">/home/inilabs/Desktop/Monaco_Roborace/02460040/caerOut-2017_05_12_16_36_22.aedat</attr>
+                <attr key="keepPackets" type="bool">false</attr>
+                <attr key="pause" type="bool">false</attr>
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="transferBufferSize" type="int">128</attr>
+                <attr key="validOnly" type="bool">false</attr>
+            </node>
+            <node name="6-FileInput" path="/1/6-FileInput/">
+                <attr key="PacketContainerDelay" type="int">5000</attr>
+                <attr key="PacketContainerInterval" type="int">10000</attr>
+                <attr key="PacketContainerMaxPacketSize" type="int">8192</attr>
+                <attr key="autoRestart" type="bool">true</attr>
+                <attr key="bufferSize" type="int">65536</attr>
+                <attr key="filePath" type="string">/home/inilabs/Desktop/Monaco_Roborace/02460046/caerOut-2017_05_12_16_36_21.aedat</attr>
+                <attr key="keepPackets" type="bool">false</attr>
+                <attr key="pause" type="bool">false</attr>
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="transferBufferSize" type="int">128</attr>
+                <attr key="validOnly" type="bool">false</attr>
+            </node>
+            <node name="60-VisualizerPolarity" path="/1/60-VisualizerPolarity/">
+                <attr key="runAtStartup" type="bool">true</attr>
+            </node>
+            <node name="7-FileInput" path="/1/7-FileInput/">
+                <attr key="PacketContainerDelay" type="int">5000</attr>
+                <attr key="PacketContainerInterval" type="int">10000</attr>
+                <attr key="PacketContainerMaxPacketSize" type="int">8192</attr>
+                <attr key="autoRestart" type="bool">true</attr>
+                <attr key="bufferSize" type="int">65536</attr>
+                <attr key="filePath" type="string">/home/inilabs/Desktop/Monaco_Roborace/02460003/caerOut-2017_05_12_16_39_38.aedat</attr>
+                <attr key="keepPackets" type="bool">false</attr>
+                <attr key="pause" type="bool">false</attr>
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="transferBufferSize" type="int">128</attr>
+                <attr key="validOnly" type="bool">false</attr>
+            </node>
+            <node name="8-FileInput" path="/1/8-FileInput/">
+                <attr key="PacketContainerDelay" type="int">5000</attr>
+                <attr key="PacketContainerInterval" type="int">10000</attr>
+                <attr key="PacketContainerMaxPacketSize" type="int">8192</attr>
+                <attr key="autoRestart" type="bool">true</attr>
+                <attr key="bufferSize" type="int">65536</attr>
+                <attr key="filePath" type="string">/home/inilabs/Desktop/Monaco_Roborace/02460004/caerOut-2017_05_12_16_39_38.aedat</attr>
+                <attr key="keepPackets" type="bool">false</attr>
+                <attr key="pause" type="bool">false</attr>
+                <attr key="runAtStartup" type="bool">true</attr>
+                <attr key="transferBufferSize" type="int">128</attr>
+                <attr key="validOnly" type="bool">false</attr>
+            </node>
+        </node>
+        <node name="logger" path="/logger/">
+            <attr key="logFile" type="string">/home/inilabs/inilabs/caer/caer.log</attr>
+            <attr key="logLevel" type="byte">5</attr>
+        </node>
+        <node name="server" path="/server/">
+            <attr key="backlogSize" type="short">5</attr>
+            <attr key="ipAddress" type="string">127.0.0.1</attr>
+            <attr key="portNumber" type="int">4040</attr>
+        </node>
+    </node>
+</sshs>
