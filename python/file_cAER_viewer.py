@@ -16,14 +16,14 @@ from time import sleep
 from matplotlib import pyplot as plt
 
 #filename = '/home/inilabs/Desktop/Monaco_Roborace/03460001/caerOut-2017_05_12_16_36_40.aedat'
-#filename = '/home/inilabs/Desktop/Monaco_Roborace/02460003/caerOut-2017_05_12_16_39_38.aedat'
+filename = '/home/inilabs/Desktop/Monaco_Roborace/02460003/caerOut-2017_05_12_16_39_38.aedat'
 #filename = '/home/inilabs/Desktop/Monaco_Roborace/02460027/caerOut-2017_05_12_16_37_30.aedat'
 #filename = '/home/inilabs/Desktop/Monaco_Roborace/02460046/caerOut-2017_05_12_16_36_21.aedat'
-filename = '/home/inilabs/Desktop/Monaco_Roborace/02460040/caerOut-2017_05_12_16_36_22.aedat'
+#filename = '/home/inilabs/Desktop/Monaco_Roborace/02460040/caerOut-2017_05_12_16_36_22.aedat'
 file_read = open(filename, "rb")
-xdim = 346
-ydim = 280
-NUMEVENTS = 3000
+xdim = 240
+ydim = 180
+NUMEVENTS = 6000
 
 def matrix_active(x, y, pol):
     matrix = np.zeros([ydim, xdim])
@@ -87,6 +87,7 @@ def read_events():
     eventnumber = struct.unpack('I', data[20:24])[0]
     eventvalid = struct.unpack('I', data[24:28])[0]
     next_read = eventcapacity * eventsize  # we now read the full packet
+    #print("next read "+str(next_read)+" eventype "+str(eventtype))
     data = file_read.read(next_read)    
     counter = 0  # eventnumber[0]
     #return arrays
@@ -96,6 +97,7 @@ def read_events():
     ts_tot =[]
     spec_type_tot =[]
     spec_ts_tot = []
+    bw_tot = []
 
     if(eventtype == 1):  # something is wrong as we set in the cAER to send only polarity events
         while(data[counter:counter + eventsize]):  # loop over all event packets
@@ -121,10 +123,22 @@ def read_events():
             spec_ts_tot.append(timestamp)
             if(spec_type == 6 or spec_type == 7 or spec_type == 9 or spec_type == 10):
                 print (timestamp, spec_type)
-            counter = counter + eventsize        
+            counter = counter + eventsize  
+    elif(eventtype == 2):
+        y_lenght = struct.unpack('I', data[24:28])[0]
+        x_lenght = struct.unpack('I', data[20:24])[0]
+        img_head = np.fromstring(data[:36], dtype=np.uint32)
+        img_data = np.fromstring(data[36:], dtype=np.uint16)
+        #is_rgb = np.logical_and(img_head[0],3)
+        bw = np.reshape((img_data),(y_lenght, x_lenght))
+        bw_tot.append(bw)
+    elif(eventtype == 3):
+        a=0   
+    else:
+        print("eventype "+str(eventtype))      
 
 
-    return np.array(x_addr_tot), np.array(y_addr_tot), np.array(pol_tot), np.array(ts_tot), np.array(spec_type_tot), np.array(spec_ts_tot)
+    return np.array(x_addr_tot), np.array(y_addr_tot), np.array(pol_tot), np.array(ts_tot), np.array(spec_type_tot), np.array(spec_ts_tot), bw_tot
 
 def run(doblit=True):
     """
@@ -133,17 +147,26 @@ def run(doblit=True):
 
     fig, ax = plt.subplots(1, 2)
     fig.set_size_inches(12,7)
-    ax[0].set_aspect('equal')
+    #spikes
+    #ax[0].set_aspect('equal')
     ax[0].set_xlim(0, xdim)
     ax[0].set_ylim(0, ydim)
     ax[0].hold(True)
+    ax[0].xaxis.set_visible(False)
+    ax[0].yaxis.set_visible(False)
+    #hist
+    #ax[1].set_xlim(0, 6000)
+    #ax[1].set_ylim(0, 5000)
+    #ax[1].hold(True)
+    #frame
     #ax[1].set_aspect('equal')
-    ax[1].set_xlim(0, 6000)
-    ax[1].set_ylim(0, 5000)
+    ax[1].set_xlim(0, xdim)
+    ax[1].set_ylim(0, ydim)
     ax[1].hold(True)
+    ax[1].xaxis.set_visible(False)
+    ax[1].yaxis.set_visible(False)
     skip_header()
-    x, y, p, ts_tot, sp_t, sp_ts = read_events()
-
+    x, y, p, ts_tot, sp_t, sp_ts, bw = read_events()
 
     this_m = matrix_active(x, y, p)
 
@@ -153,11 +176,14 @@ def run(doblit=True):
     if doblit:
         # cache the background
         background = fig.canvas.copy_from_bbox(ax[0].bbox)
+        backgrounda = fig.canvas.copy_from_bbox(ax[1].bbox)
+        #backgroundb = fig.canvas.copy_from_bbox(ax[2].bbox) 
 
     this_m = this_m/np.max(this_m)
     points = ax[0].imshow(this_m, interpolation='nearest', cmap='binary', origin='upper')
+    frames = ax[1].imshow(np.random.rand(xdim,ydim), interpolation='nearest', cmap='binary', origin='upper', extent=[0,xdim,0,ydim])
     hist_ts = np.zeros([2,100])
-    points_h = ax[1].plot(hist_ts[0,:], hist_ts[1,:], 'o')[0]
+    #points_h = ax[1].plot(hist_ts[0,:], hist_ts[1,:], 'o')[0]
     tic = time.time()
     niter = 0
     slow_speed = 1.0
@@ -168,13 +194,16 @@ def run(doblit=True):
     ts_tot = np.array([])
     spec_type = np.array([])
     spec_type_ts = np.array([])
+    bw_tot = np.array([])
 
     while(1):
         #sleep(slow_speed)
         # update the xy data
-        x_t, y_t, p_t, ts_tot_t, spec_type_t, spec_type_ts_t = read_events()
+        x_t, y_t, p_t, ts_tot_t, spec_type_t, spec_type_ts_t, bw = read_events()
+        if(np.size(bw)>1):
+            bw_tot = bw
         #if((len(ts_tot_t) > 2) and (ts_tot_t[1] - ts_tot_t[::-1][0] < 10000)):
-        if( (len(ts_tot_t) > 2 ) and (np.sum(len(x)) < NUMEVENTS) ):
+        if( (np.sum(len(x)) < NUMEVENTS) ):
             #print("keep accumulating "+str(np.sum(len(x))))
             x = np.append(x,x_t)
             y = np.append(y,y_t)
@@ -182,7 +211,7 @@ def run(doblit=True):
             ts_tot = np.append(ts_tot,ts_tot_t)
             spec_type_t = np.append(spec_type_t,spec_type_t)
             spec_type_ts = np.append(spec_type_ts,spec_type_ts_t)
-        elif(np.sum(len(x)) > NUMEVENTS):
+        else:
             #print("draw "+str(np.sum(len(x))))
             if(len(ts_tot) > 2):
                 time_window = np.max(ts_tot) - np.min(ts_tot)
@@ -192,22 +221,27 @@ def run(doblit=True):
                 hist_ts[0,:] = ba[1::]
                 hist_ts[1,:] = aa
                 #raise Exception
-                points_h.set_data(hist_ts)
+                #points_h.set_data(hist_ts)
                 points.set_data(np.flipud(this_m))
-                niter += 1
+                if(np.size(bw_tot) > 0):
+                    nframes = np.size(bw_tot)/(xdim*ydim)
+                    frames.set_data((1.0 - (bw_tot[0]/65536.0)))
+                    ax[1].autoscale_view(True,True,True)
 
                 if doblit:
                     # restore background
                     fig.canvas.restore_region(background)
-                    raise Exception
 
                     # redraw just the points
                     ax[0].draw_artist(points)
-                    ax[1].draw_artist(points_h)
+                    #ax[1].draw_artist(points_h)
+                    if(np.size(bw_tot) > 0):
+                        ax[1].draw_artist(frames) 
 
                     # fill in the axes rectangle
                     fig.canvas.blit(ax[0].bbox)
-                    fig.canvas.blit(ax[1].bbox)
+                    if(np.size(bw_tot) > 0):
+                        fig.canvas.blit(ax[1].bbox)
                 else:
                     # redraw everything
                     fig.canvas.draw()
@@ -218,12 +252,11 @@ def run(doblit=True):
                 ts_tot = np.array([])
                 spec_type = np.array([])
                 spec_type_ts = np.array([])
+                bw_tot = np.array([])
 
 
 
     plt.close(fig)
-    print ("Blit = %s, average FPS: %.2f" % (
-        str(doblit), niter / (time.time() - tic)))
 
 if __name__ == '__main__':
-    run(doblit=False)
+    run(doblit=True)
