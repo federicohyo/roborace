@@ -128,20 +128,20 @@ static bool mainloop_roborace(void) {
 	container_cam0 = caerInputFile(1);
 
 	// Typed EventPackets contain events of a certain type.
-	special_cam0 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam0, SPECIAL_EVENT);
-	polarity_cam0 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam0, POLARITY_EVENT);
-	frame_cam0 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam0, FRAME_EVENT);
-	imu_cam0 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam0, IMU6_EVENT);
+	special_cam0 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam0, SPECIAL_EVENT);
+	polarity_cam0 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam0, POLARITY_EVENT);
+	frame_cam0 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam0, FRAME_EVENT);
+	imu_cam0 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam0, IMU6_EVENT);
 
 	// Input modules grab data from outside sources (like devices, files, ...)
 	// and put events into an event packet.
 	container_cam1 = caerInputFile(2);
 
 	// Typed EventPackets contain events of a certain type.
-	special_cam1 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam1, SPECIAL_EVENT);
-	polarity_cam1 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam1, POLARITY_EVENT);
-	frame_cam1 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam1, FRAME_EVENT);
-	imu_cam1 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam1, IMU6_EVENT);
+	special_cam1 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam1, SPECIAL_EVENT);
+	polarity_cam1 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam1, POLARITY_EVENT);
+	frame_cam1 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam1, FRAME_EVENT);
+	imu_cam1 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam1, IMU6_EVENT);
 
 // Right Stereo Pair
 
@@ -150,20 +150,20 @@ static bool mainloop_roborace(void) {
 	container_cam2 = caerInputFile(3);
 
 	// Typed EventPackets contain events of a certain type.
-	special_cam2 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam2, SPECIAL_EVENT);
-	polarity_cam2 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam2, POLARITY_EVENT);
-	frame_cam2 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam2, FRAME_EVENT);
-	imu_cam2 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam2, IMU6_EVENT);
+	special_cam2 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam2, SPECIAL_EVENT);
+	polarity_cam2 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam2, POLARITY_EVENT);
+	frame_cam2 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam2, FRAME_EVENT);
+	imu_cam2 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam2, IMU6_EVENT);
 
 	// Input modules grab data from outside sources (like devices, files, ...)
 	// and put events into an event packet.
 	container_cam3 = caerInputFile(4);
 
 	// Typed EventPackets contain events of a certain type.
-	special_cam3 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam3, SPECIAL_EVENT);
-	polarity_cam3 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam3, POLARITY_EVENT);
-	frame_cam3 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam3, FRAME_EVENT);
-	imu_cam3 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam3, IMU6_EVENT);
+	special_cam3 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam3, SPECIAL_EVENT);
+	polarity_cam3 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam3, POLARITY_EVENT);
+	frame_cam3 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam3, FRAME_EVENT);
+	imu_cam3 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam3, IMU6_EVENT);
 
 
 // Rear stereo pair
@@ -172,19 +172,19 @@ static bool mainloop_roborace(void) {
 
 	// Typed EventPackets contain events of a certain type.
 	// We search for them by type here, because input modules may not have all or any of them.
-	special_cam4 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam4, SPECIAL_EVENT);
-	polarity_cam4 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam4, POLARITY_EVENT);
-	frame_cam4 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam4, FRAME_EVENT);
-	imu_cam4 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam4, IMU6_EVENT);
+	special_cam4 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam4, SPECIAL_EVENT);
+	polarity_cam4 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam4, POLARITY_EVENT);
+	frame_cam4 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam4, FRAME_EVENT);
+	imu_cam4 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam4, IMU6_EVENT);
 
 	container_cam5 = caerInputFile(6);
 
 	// Typed EventPackets contain events of a certain type.
 	// We search for them by type here, because input modules may not have all or any of them.
-	special_cam5 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam5, SPECIAL_EVENT);
-	polarity_cam5 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam5, POLARITY_EVENT);
-	frame_cam5 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam5, FRAME_EVENT);
-	imu_cam5 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam5, IMU6_EVENT);
+	special_cam5 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam5, SPECIAL_EVENT);
+	polarity_cam5 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam5, POLARITY_EVENT);
+	frame_cam5 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam5, FRAME_EVENT);
+	imu_cam5 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam5, IMU6_EVENT);
 
 
 // Left stereo pair
@@ -193,19 +193,19 @@ static bool mainloop_roborace(void) {
 
 	// Typed EventPackets contain events of a certain type.
 	// We search for them by type here, because input modules may not have all or any of them.
-	special_cam6 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam6, SPECIAL_EVENT);
-	polarity_cam6 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam6, POLARITY_EVENT);
-	frame_cam6 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam6, FRAME_EVENT);
-	imu_cam6 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam6, IMU6_EVENT);
+	special_cam6 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam6, SPECIAL_EVENT);
+	polarity_cam6 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam6, POLARITY_EVENT);
+	frame_cam6 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam6, FRAME_EVENT);
+	imu_cam6 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam6, IMU6_EVENT);
 
 	container_cam7 = caerInputFile(8);
 
 	// Typed EventPackets contain events of a certain type.
 	// We search for them by type here, because input modules may not have all or any of them.
-	special_cam7 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam7, SPECIAL_EVENT);
-	polarity_cam7 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam7, POLARITY_EVENT);
-	frame_cam7 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam7, FRAME_EVENT);
-	imu_cam7 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam7, IMU6_EVENT);
+	special_cam7 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam7, SPECIAL_EVENT);
+	polarity_cam7 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam7, POLARITY_EVENT);
+	frame_cam7 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam7, FRAME_EVENT);
+	imu_cam7 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam7, IMU6_EVENT);
 
 #endif
 
