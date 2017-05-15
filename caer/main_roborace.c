@@ -58,7 +58,9 @@
 #ifdef ENABLE_STEREOCALIBRATION
 #include "modules/stereocalibration/stereocalibration.h"
 #endif
-
+#ifdef ENABLE_SPIKEFEATURES
+#include "modules/spikefeatures/spikefeatures.h"
+#endif
 
 static bool mainloop_roborace(void);
 
@@ -141,7 +143,6 @@ static bool mainloop_roborace(void) {
 	frame_cam1 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam1, FRAME_EVENT);
 	imu_cam1 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam1, IMU6_EVENT);
 
-
 // Right Stereo Pair
 
 	// Input modules grab data from outside sources (like devices, files, ...)
@@ -171,19 +172,19 @@ static bool mainloop_roborace(void) {
 
 	// Typed EventPackets contain events of a certain type.
 	// We search for them by type here, because input modules may not have all or any of them.
-	special_cam4 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam4, SPECIAL_EVENT);
-	polarity_cam4 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam4, POLARITY_EVENT);
-	frame_cam4 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam4, FRAME_EVENT);
-	imu_cam4 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam4, IMU6_EVENT);
+	special_cam4 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam4, SPECIAL_EVENT);
+	polarity_cam4 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam4, POLARITY_EVENT);
+	frame_cam4 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam4, FRAME_EVENT);
+	imu_cam4 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam4, IMU6_EVENT);
 
 	container_cam5 = caerInputFile(6);
 
 	// Typed EventPackets contain events of a certain type.
 	// We search for them by type here, because input modules may not have all or any of them.
-	special_cam5 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam5, SPECIAL_EVENT);
-	polarity_cam5 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam5, POLARITY_EVENT);
-	frame_cam5 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam5, FRAME_EVENT);
-	imu_cam5 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam5, IMU6_EVENT);
+	special_cam5 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam5, SPECIAL_EVENT);
+	polarity_cam5 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam5, POLARITY_EVENT);
+	frame_cam5 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam5, FRAME_EVENT);
+	imu_cam5 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam5, IMU6_EVENT);
 
 
 // Left stereo pair
@@ -192,19 +193,19 @@ static bool mainloop_roborace(void) {
 
 	// Typed EventPackets contain events of a certain type.
 	// We search for them by type here, because input modules may not have all or any of them.
-	special_cam6 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam6, SPECIAL_EVENT);
-	polarity_cam6 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam6, POLARITY_EVENT);
-	frame_cam6 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam6, FRAME_EVENT);
-	imu_cam6 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam6, IMU6_EVENT);
+	special_cam6 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam6, SPECIAL_EVENT);
+	polarity_cam6 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam6, POLARITY_EVENT);
+	frame_cam6 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam6, FRAME_EVENT);
+	imu_cam6 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam6, IMU6_EVENT);
 
 	container_cam7 = caerInputFile(8);
 
 	// Typed EventPackets contain events of a certain type.
 	// We search for them by type here, because input modules may not have all or any of them.
-	special_cam7 = (caerSpecialEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam7, SPECIAL_EVENT);
-	polarity_cam7 = (caerPolarityEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam7, POLARITY_EVENT);
-	frame_cam7 = (caerFrameEventPacket) caerEventPacketContainerFindEventPacketByType(container_cam7, FRAME_EVENT);
-	imu_cam7 = (caerIMU6EventPacket) caerEventPacketContainerFindEventPacketByType(container_cam7, IMU6_EVENT);
+	special_cam7 = (caerSpecialEventPacket) caerEventPacketContainerGetEventPacket(container_cam7, SPECIAL_EVENT);
+	polarity_cam7 = (caerPolarityEventPacket) caerEventPacketContainerGetEventPacket(container_cam7, POLARITY_EVENT);
+	frame_cam7 = (caerFrameEventPacket) caerEventPacketContainerGetEventPacket(container_cam7, FRAME_EVENT);
+	imu_cam7 = (caerIMU6EventPacket) caerEventPacketContainerGetEventPacket(container_cam7, IMU6_EVENT);
 
 #endif
 
@@ -223,6 +224,24 @@ static bool mainloop_roborace(void) {
 	caerBackgroundActivityFilter(16,polarity_cam7);	
 #endif
 
+#ifdef ENABLE_SPIKEFEATURES
+	caerFrameEventPacket alpha_cam0 = NULL;;
+	caerFrameEventPacket alpha_cam1 = NULL;;
+	caerFrameEventPacket alpha_cam2 = NULL;;
+	caerFrameEventPacket alpha_cam3 = NULL;;
+	caerFrameEventPacket alpha_cam4 = NULL;;
+	caerFrameEventPacket alpha_cam5 = NULL;;
+	caerFrameEventPacket alpha_cam6 = NULL;;
+	caerFrameEventPacket alpha_cam7 = NULL;;
+	caerSpikeFeatures(33, polarity_cam0, &alpha_cam0);
+	caerSpikeFeatures(34, polarity_cam1, &alpha_cam1);
+	caerSpikeFeatures(35, polarity_cam2, &alpha_cam2);
+	caerSpikeFeatures(36, polarity_cam3, &alpha_cam3);
+	caerSpikeFeatures(37, polarity_cam4, &alpha_cam4);
+	caerSpikeFeatures(38, polarity_cam5, &alpha_cam5);
+	caerSpikeFeatures(39, polarity_cam6, &alpha_cam6);
+	caerSpikeFeatures(40, polarity_cam7, &alpha_cam7);
+#endif
 
 	// A simple visualizer exists to show what the output looks like.
 #ifdef ENABLE_VISUALIZER
@@ -244,6 +263,17 @@ static bool mainloop_roborace(void) {
 	caerVisualizer(30, "Polarity", &caerVisualizerRendererPolarityEvents, visualizerEventHandler, (caerEventPacketHeader) polarity_cam5);
 	caerVisualizer(31, "Polarity", &caerVisualizerRendererPolarityEvents, visualizerEventHandler, (caerEventPacketHeader) polarity_cam6);
 	caerVisualizer(32, "Polarity", &caerVisualizerRendererPolarityEvents, visualizerEventHandler, (caerEventPacketHeader) polarity_cam7);
+
+#ifdef ENABLE_SPIKEFEATURES
+	caerVisualizer(41, "Frame", &caerVisualizerRendererFrameEvents, NULL, (caerEventPacketHeader) alpha_cam0);
+	caerVisualizer(42, "Frame", &caerVisualizerRendererFrameEvents, NULL, (caerEventPacketHeader) alpha_cam1);
+	caerVisualizer(43, "Frame", &caerVisualizerRendererFrameEvents, NULL, (caerEventPacketHeader) alpha_cam2);
+	caerVisualizer(44, "Frame", &caerVisualizerRendererFrameEvents, NULL, (caerEventPacketHeader) alpha_cam3);
+	caerVisualizer(45, "Frame", &caerVisualizerRendererFrameEvents, NULL, (caerEventPacketHeader) alpha_cam4);
+	caerVisualizer(46, "Frame", &caerVisualizerRendererFrameEvents, NULL, (caerEventPacketHeader) alpha_cam5);
+	caerVisualizer(47, "Frame", &caerVisualizerRendererFrameEvents, NULL, (caerEventPacketHeader) alpha_cam6);
+	caerVisualizer(48, "Frame", &caerVisualizerRendererFrameEvents, NULL, (caerEventPacketHeader) alpha_cam7);
+#endif
 
 #endif
 
