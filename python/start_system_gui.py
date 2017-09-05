@@ -10,12 +10,12 @@ from time import sleep
 #settings
 nbytes = 4096
 port = 22
-username = 'pi' 
+username = 'inilabs' 
 password = 'inilabs'
-caer_start = 'screen -d -m bash -c "/home/pi/inilabs/caer/caer-bin > /dev/null 2>&1";'
-ip_zpi_master_synch = '192.168.42.1'
-sn_cam_master_synch = '02460040'
-ip_zpi_fx3 = '192.168.42.7'
+caer_start = 'screen -d -m bash -c "/home/inilabs/sw/caer/caer-bin > /dev/null 2>&1";'
+ip_zpi_master_synch = '127.0.0.1'
+sn_cam_master_synch = '03460001'
+ip_zpi_fx3 = '127.0.0.1'
 fname = "cam_list.txt" #file containing lists of ips
 paramiko.util.log_to_file("filename.log")
 
@@ -105,9 +105,9 @@ def reset_timestamp():
     counter=0
     for current_ctl in control_stereo:
         if(ip_cams[counter] == ip_zpi_master_synch):
-            control_stereo[counter].send_command('put /1/1-DAVISFX2/DAVIS240C/multiplexer/ TimestampReset bool true')
+            control_stereo[counter].send_command('put /davisCamera/DAVIS346B/multiplexer/ TimestampReset bool true')
             sleep(0.5)
-            control_stereo[counter].send_command('put /1/1-DAVISFX2/DAVIS240C/multiplexer/ TimestampReset bool false')
+            control_stereo[counter].send_command('put /davisCamera1/DAVIS346B/multiplexer/ TimestampReset bool false')
         counter+=1
 
 def check_synch_status():
@@ -118,27 +118,27 @@ def check_synch_status():
         if(ip_cams[counter] == ip_zpi_master_synch):
             print "\n"
             print "THIS IS THE MASTER\n"
-            control_stereo[counter].send_command('get /1/1-DAVISFX2/sourceInfo/ deviceIsMaster bool')
-            control_stereo[counter].send_command('get /1/2-DAVISFX2/sourceInfo/ deviceIsMaster bool')
+            control_stereo[counter].send_command('get /davisCamera/sourceInfo/ deviceIsMaster bool')
+            control_stereo[counter].send_command('get /davisCamera1/sourceInfo/ deviceIsMaster bool')
         elif(ip_cams[counter] == ip_zpi_fx3):
-            control_stereo[counter].send_command('get /1/1-DAVISFX3/sourceInfo/ deviceIsMaster bool')
-            control_stereo[counter].send_command('get /1/2-DAVISFX3/sourceInfo/ deviceIsMaster bool')
+            control_stereo[counter].send_command('get /davisCamera/sourceInfo/ deviceIsMaster bool')
+            control_stereo[counter].send_command('get /davisCamera1/sourceInfo/ deviceIsMaster bool')
         else:
-            control_stereo[counter].send_command('get /1/1-DAVISFX2/sourceInfo/ deviceIsMaster bool')
-            control_stereo[counter].send_command('get /1/2-DAVISFX2/sourceInfo/ deviceIsMaster bool')
+            control_stereo[counter].send_command('get /davisCamera/sourceInfo/ deviceIsMaster bool')
+            control_stereo[counter].send_command('get /davisCamera1/sourceInfo/ deviceIsMaster bool')
         counter+=1
 
 def start_recordings():
     print "START RECORDINGS.."
     for current_ctl in control_stereo:
-        current_ctl.send_command('put /1/9-FileOutput/ running bool true')
-        current_ctl.send_command('put /1/99-FileOutput/ running bool true')
+        current_ctl.send_command('put /fileOutputCama/ running bool true')
+        current_ctl.send_command('put /fileOutputCamb/ running bool true')
 
 def stop_recordings():
     print "STOP RECORDINGS.."
     for current_ctl in control_stereo:
-        current_ctl.send_command('put /1/9-FileOutput/ running bool false')
-        current_ctl.send_command('put /1/99-FileOutput/ running bool false')
+        current_ctl.send_command('put /fileOutputCama/ running bool false')
+        current_ctl.send_command('put /fileOutputCamb/ running bool false')
 
 def check_file_status():
     print "CHECKING FILE STATUS FOR ALL STEREO UP"
@@ -153,7 +153,7 @@ def check_file_status():
         stdout_data = []
         stderr_data = []
         session = client.open_channel(kind='session')
-        session.exec_command('ls -lah /home/pi/inilabs/data/*/*')
+        session.exec_command('ls -lah /cam[a,b]/')
         while True:
             if session.recv_ready():
                 stdout_data.append(session.recv(nbytes))
