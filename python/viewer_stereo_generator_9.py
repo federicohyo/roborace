@@ -17,7 +17,7 @@ from matplotlib import pyplot as plt
 from matplotlib import animation
 
 # PARAMETERS
-host = "192.168.42.9"
+host = "127.0.0.1"
 port = 7777
 
 sock = socket.socket()
@@ -42,36 +42,39 @@ if(aedat_ver != 1):
 if(format_number != 0 ):   
     print("Format Number version not implemented -> " + str(format_number))
     raise Exception   
-if(source_number != 20 ):
-    print("Source Number not imagegenerator - roborace - not implemented " + str(source_number))
-    raise Exception
+
+done = False
+
+while done == False:
+    data = sock.recv(28, socket.MSG_WAITALL)  # we read the header of the packet
+
+    # read header
+    eventtype = struct.unpack('H', data[0:2])[0]
+    eventsource = struct.unpack('H', data[2:4])[0]
+    eventsize = struct.unpack('I', data[4:8])[0]
+    eventoffset = struct.unpack('I', data[8:12])[0]
+    eventtsoverflow = struct.unpack('I', data[12:16])[0]
+    eventcapacity = struct.unpack('I', data[16:20])[0]
+    eventnumber = struct.unpack('I', data[20:24])[0]
+    eventvalid = struct.unpack('I', data[24:28])[0]
+    next_read = eventcapacity * eventsize  # we now read the full packet
+    data = sock.recv(next_read, socket.MSG_WAITALL) 
 
 
-data = sock.recv(28, socket.MSG_WAITALL)  # we read the header of the packet
-
-# read header
-eventtype = struct.unpack('H', data[0:2])[0]
-eventsource = struct.unpack('H', data[2:4])[0]
-eventsize = struct.unpack('I', data[4:8])[0]
-eventoffset = struct.unpack('I', data[8:12])[0]
-eventtsoverflow = struct.unpack('I', data[12:16])[0]
-eventcapacity = struct.unpack('I', data[16:20])[0]
-eventnumber = struct.unpack('I', data[20:24])[0]
-eventvalid = struct.unpack('I', data[24:28])[0]
-next_read = eventcapacity * eventsize  # we now read the full packet
-data = sock.recv(next_read, socket.MSG_WAITALL) 
-
-# frame event type
-if(eventtype == 2):
-    y_lenght = struct.unpack('I', data[24:28])[0]
-    x_lenght = struct.unpack('I', data[20:24])[0]
-    img_head = np.fromstring(data[:36], dtype=np.uint32)
-    img_data = np.fromstring(data[36:], dtype=np.uint16)
-    is_rgb = np.logical_and(img_head[0],3)
-    if(is_rgb):
-        col = np.reshape(img_data,(x_lenght, y_lenght,3))
+    # frame event type
+    if(eventtype == 2):
+        y_lenght = struct.unpack('I', data[24:28])[0]
+        x_lenght = struct.unpack('I', data[20:24])[0]
+        img_head = np.fromstring(data[:36], dtype=np.uint32)
+        img_data = np.fromstring(data[36:], dtype=np.uint16)
+        is_rgb = np.logical_and(img_head[0],3)
+        if(is_rgb):
+            col = np.reshape(img_data,(x_lenght, y_lenght,3))
+        else:
+            bw = np.reshape(img_data,(x_lenght, y_lenght))
+        done = True
     else:
-        bw = np.reshape(img_data,(x_lenght, y_lenght))
+        done = False
 
 nx = y_lenght
 ny = x_lenght
